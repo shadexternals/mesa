@@ -1378,6 +1378,17 @@ kk_flush_dynamic_state(struct kk_cmd_buffer *cmd)
       }
    }
 
+   /* Metal only has filled and wireframe triangles. Point mode has no
+    * equivalent and is drawn as wireframe too, which is why the non-solid
+    * fill modes are a partial implementation. Emulated geometry and
+    * tessellation rasterize already expanded triangles, so the mode applies
+    * to the primitives the rasterizer sees, as Vulkan specifies. */
+   if (IS_DIRTY(RS_POLYGON_MODE)) {
+      mtl_set_triangle_fill_mode(enc, dyn->rs.polygon_mode == VK_POLYGON_MODE_FILL
+                                         ? MTL_TRIANGLE_FILL_MODE_FILL
+                                         : MTL_TRIANGLE_FILL_MODE_LINES);
+   }
+
    /* We enable raster discard by setting scissor to size (0, 0) */
    if (!(dyn->rs.rasterizer_discard_enable || gfx->is_cull_front_and_back) &&
        (IS_DIRTY(VP_VIEWPORT_COUNT) || IS_DIRTY(VP_VIEWPORTS) ||

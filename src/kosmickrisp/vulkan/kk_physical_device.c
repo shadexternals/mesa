@@ -233,6 +233,9 @@ kk_get_device_features(
       .dualSrcBlend = true,
       .fragmentStoresAndAtomics = true,
       .fullDrawIndexUint32 = true,
+      /* Wireframe through Metal's triangle fill mode. Point mode draws as
+       * wireframe, see kk_flush_dynamic_state. */
+      .fillModeNonSolid = true,
       .geometryShader = true,
       .imageCubeArray = true,
       .independentBlend = true,

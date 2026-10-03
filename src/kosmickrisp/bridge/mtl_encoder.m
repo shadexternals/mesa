@@ -362,6 +362,16 @@ mtl_set_cull_mode(mtl_render_encoder *encoder, enum mtl_cull_mode mode)
 }
 
 void
+mtl_set_triangle_fill_mode(mtl_render_encoder *encoder,
+                           enum mtl_triangle_fill_mode mode)
+{
+   @autoreleasepool {
+      id<MTL4RenderCommandEncoder> enc = (id<MTL4RenderCommandEncoder>)encoder;
+      [enc setTriangleFillMode:(MTLTriangleFillMode)mode];
+   }
+}
+
+void
 mtl_set_visibility_result_mode(mtl_render_encoder *encoder,
                                enum mtl_visibility_result_mode mode,
                                size_t offset)

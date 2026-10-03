@@ -99,6 +99,9 @@ void mtl_set_front_face_winding(mtl_render_encoder *encoder,
 
 void mtl_set_cull_mode(mtl_render_encoder *encoder, enum mtl_cull_mode mode);
 
+void mtl_set_triangle_fill_mode(mtl_render_encoder *encoder,
+                                enum mtl_triangle_fill_mode mode);
+
 void mtl_set_visibility_result_mode(mtl_render_encoder *encoder,
                                     enum mtl_visibility_result_mode mode,
                                     size_t offset);

@@ -236,6 +236,11 @@ enum mtl_cull_mode {
    MTL_CULL_MODE_BACK = 2,
 };
 
+enum mtl_triangle_fill_mode {
+   MTL_TRIANGLE_FILL_MODE_FILL = 0,
+   MTL_TRIANGLE_FILL_MODE_LINES = 1,
+};
+
 enum mtl_visibility_result_mode {
    MTL_VISIBILITY_RESULT_MODE_DISABLED = 0,
    MTL_VISIBILITY_RESULT_MODE_BOOLEAN = 1,
