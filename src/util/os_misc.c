@@ -472,7 +472,14 @@ os_get_available_system_memory(uint64_t *size)
       return false;
    }
 
-   *size = ((uint64_t)vm_stats.free_count + (uint64_t)vm_stats.inactive_count) * PAGE_SIZE;
+   /* The counts are in host kernel pages. Under Rosetta that is 16 KiB,
+    * while PAGE_SIZE and vm_page_size in an x86_64 process say 4 KiB, which
+    * made the result a quarter of the real value. */
+   vm_size_t page_size;
+   if (host_page_size(mach_host_self(), &page_size) != KERN_SUCCESS)
+      return false;
+
+   *size = ((uint64_t)vm_stats.free_count + (uint64_t)vm_stats.inactive_count) * page_size;
    return true;
 #else
    return false;
